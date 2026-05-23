@@ -28,8 +28,10 @@ Package.resolved
 *.xcworkspace/xcuserdata/
 
 ## XcodeGen
-## The .xcodeproj is generated from project.yml — keep it out of git.
-*.xcodeproj/
+## project.yml is the source of truth — regenerate with `xcodegen generate`
+## after editing it. We do commit the resulting .xcodeproj so Xcode Cloud
+## can build straight from GitHub without needing to run xcodegen first.
+## User-state and workspace files inside the .xcodeproj stay ignored above.
 
 ## Fastlane
 fastlane/report.xml
