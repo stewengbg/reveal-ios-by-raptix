@@ -7,6 +7,7 @@ final class AssociateHomeModel: ObservableObject {
     @Published var allShifts: [Shift] = []
     @Published var isCheckingIn = false
     @Published var isCheckingOut = false
+    @Published var isAcknowledging = false
     @Published var isLoadingInitial = true
     @Published var lastError: String?
 
@@ -70,6 +71,31 @@ final class AssociateHomeModel: ObservableObject {
             _ = try await ShiftsRepository.checkOut()
             myShift = nil
             await refresh()
+        } catch {
+            lastError = (error as NSError).localizedDescription
+        }
+    }
+
+    func acknowledgeQueueAlert(threshold: Int, triggeredValue: Int) async {
+        isAcknowledging = true
+        defer { isAcknowledging = false }
+        do {
+            let alert = try await QueueAlertsRepository.acknowledge(
+                siteId: siteId,
+                threshold: threshold,
+                triggeredValue: triggeredValue
+            )
+            // Optimistically merge into the local metrics so the tile
+            // updates instantly without waiting for the next poll.
+            if let current = metrics {
+                metrics = LiveMetrics(
+                    queueCount: current.queueCount,
+                    occupancyCount: current.occupancyCount,
+                    queueLastUpdated: current.queueLastUpdated,
+                    occupancyLastUpdated: current.occupancyLastUpdated,
+                    openAlert: alert
+                )
+            }
         } catch {
             lastError = (error as NSError).localizedDescription
         }
@@ -284,6 +310,7 @@ struct AssociateHomeView: View {
         let count = model.metrics?.queueCount ?? 0
         let level: QueueLevel = count >= 5 ? .red : count >= 3 ? .yellow : .green
         let lastUpdated = model.metrics?.queueLastUpdated
+        let alert = model.metrics?.openAlert
 
         return VStack(spacing: 12) {
             HStack {
@@ -292,7 +319,7 @@ struct AssociateHomeView: View {
                         .font(.caption.weight(.medium))
                         .foregroundStyle(.secondary)
                         .textCase(.uppercase)
-                    Text("\(count) \(count == 1 ? "waiting" : "waiting")")
+                    Text("\(count) waiting")
                         .font(.system(.title, design: .rounded, weight: .semibold))
                 }
                 Spacer()
@@ -306,19 +333,52 @@ struct AssociateHomeView: View {
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
+            // Three states for level=red:
+            //   • No open alert OR alert exists but no ack → big "I've got it" button.
+            //   • Alert ack'd by me → green "You've got it" pill.
+            //   • Alert ack'd by someone else → grey "{Name} has taken it".
             if level == .red {
-                Button {
-                    // TODO Phase 7 — acknowledge alert via edge function
-                } label: {
-                    HStack {
-                        Image(systemName: "hand.raised.fill")
-                        Text("I've got it").fontWeight(.semibold)
+                if let alert, alert.acknowledgedBy != nil {
+                    if alert.isSelfAck {
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                            Text("You've got it")
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.green)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 28)
+                        .padding(.vertical, 6)
+                        .background(.green.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
+                    } else {
+                        HStack(spacing: 8) {
+                            Image(systemName: "person.fill.checkmark")
+                                .foregroundStyle(.secondary)
+                            Text("\(alert.ackerDisplayName) has taken it")
+                                .fontWeight(.medium)
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 28)
+                        .padding(.vertical, 6)
+                        .background(.gray.opacity(0.1), in: RoundedRectangle(cornerRadius: 10))
                     }
-                    .frame(maxWidth: .infinity, minHeight: 28)
+                } else {
+                    Button(action: handleAcknowledge) {
+                        HStack {
+                            if model.isAcknowledging {
+                                ProgressView().tint(.white)
+                            } else {
+                                Image(systemName: "hand.raised.fill")
+                                Text("I've got it").fontWeight(.semibold)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 28)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.red)
+                    .controlSize(.large)
+                    .disabled(model.isAcknowledging)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
-                .controlSize(.large)
             }
 
             if let lastUpdated {
@@ -334,6 +394,13 @@ struct AssociateHomeView: View {
             RoundedRectangle(cornerRadius: 16)
                 .strokeBorder(level.color.opacity(0.4), lineWidth: level == .red ? 1.5 : 0.5)
         )
+    }
+
+    private func handleAcknowledge() {
+        let count = model.metrics?.queueCount ?? 0
+        Task {
+            await model.acknowledgeQueueAlert(threshold: 5, triggeredValue: count)
+        }
     }
 
     private enum QueueLevel {

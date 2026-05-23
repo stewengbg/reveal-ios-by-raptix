@@ -7,12 +7,44 @@ struct LiveMetrics: Codable, Hashable {
     let occupancyCount: Int
     let queueLastUpdated: Date?
     let occupancyLastUpdated: Date?
+    let openAlert: QueueAlert?
 
     enum CodingKeys: String, CodingKey {
         case queueCount = "queue_count"
         case occupancyCount = "occupancy_count"
         case queueLastUpdated = "queue_last_updated"
         case occupancyLastUpdated = "occupancy_last_updated"
+        case openAlert = "open_alert"
+    }
+}
+
+/// Open queue alert state. Returned inline by get-live-site-metrics
+/// and directly by acknowledge-queue-alert.
+struct QueueAlert: Codable, Hashable {
+    let id: UUID
+    let threshold: Int
+    let triggeredValue: Int
+    let acknowledgedBy: UUID?
+    let acknowledgedByEmail: String?
+    let acknowledgedAt: Date?
+    let startedAt: Date
+    let isSelfAck: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case threshold
+        case triggeredValue = "triggered_value"
+        case acknowledgedBy = "acknowledged_by"
+        case acknowledgedByEmail = "acknowledged_by_email"
+        case acknowledgedAt = "acknowledged_at"
+        case startedAt = "started_at"
+        case isSelfAck = "is_self_ack"
+    }
+
+    var ackerDisplayName: String {
+        guard let email = acknowledgedByEmail else { return "Colleague" }
+        let local = email.split(separator: "@").first.map(String.init) ?? email
+        return local.prefix(1).uppercased() + local.dropFirst()
     }
 }
 
