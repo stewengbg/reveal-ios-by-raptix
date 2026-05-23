@@ -38,7 +38,7 @@
 		83BB8F0A1C69946A7633F98B /* SiteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDetailView.swift; sourceTree = "<group>"; };
 		884B2FD7625E3AD5CD45EE6E /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
 		96D2B94D3E246C1393B5EAEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9D22E58AF2236A605FF11146 /* Reveal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reveal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D22E58AF2236A605FF11146 /* Reveal.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Reveal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6D2F9D703DEA99E1CB9612F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B704A36E7D6614AF5A3FF116 /* ShiftsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsRepository.swift; sourceTree = "<group>"; };
 		B7100581E70122A50C10F6E6 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -177,6 +177,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					A23F9F698F53E2998F14A7A1 = {
+						DevelopmentTeam = 6LHPN7N87C;
 						ProvisioningStyle = Automatic;
 					};
 				};
