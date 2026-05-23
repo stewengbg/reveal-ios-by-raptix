@@ -29,15 +29,22 @@ enum RoleResolver {
 
         let (tenants, sites) = try await (tenantRows, siteRows)
 
-        // Highest-privilege wins.
+        // 1. Owner / admin tenant role — highest privilege, always wins.
+        //    Decision-makers see the fleet view regardless of any other
+        //    role they might also carry.
         if tenants.contains(where: { $0.role == "owner" || $0.role == "admin" }) {
             let primary = try await fetchFirstSiteForCurrentUser()
             return UserRoleAssignment(role: .owner, primarySite: primary)
         }
 
-        if tenants.contains(where: { $0.role == "member" || $0.role == "manager" }) {
-            let primary = try await fetchFirstSiteForCurrentUser()
-            return UserRoleAssignment(role: .manager, primarySite: primary)
+        // 2. Site-explicit assignment beats legacy tenant member/manager.
+        //    When an admin creates someone via the "Mobilapp" tab in the
+        //    web's Users settings, the intent is for them to land in the
+        //    AssociateHomeView — even if they happen to also carry a
+        //    legacy tenant_membership(role='member') from an older flow.
+        if let associateSite = sites.first(where: { $0.role == "associate" }) {
+            let site = try await fetchSite(id: associateSite.site_id)
+            return UserRoleAssignment(role: .associate, primarySite: site)
         }
 
         if let managerSite = sites.first(where: { $0.role == "manager" }) {
@@ -45,9 +52,11 @@ enum RoleResolver {
             return UserRoleAssignment(role: .manager, primarySite: site)
         }
 
-        if let associateSite = sites.first(where: { $0.role == "associate" }) {
-            let site = try await fetchSite(id: associateSite.site_id)
-            return UserRoleAssignment(role: .associate, primarySite: site)
+        // 3. Legacy tenant member / manager — falls back to the generic
+        //    site list until a dedicated ManagerHomeView lands.
+        if tenants.contains(where: { $0.role == "member" || $0.role == "manager" }) {
+            let primary = try await fetchFirstSiteForCurrentUser()
+            return UserRoleAssignment(role: .manager, primarySite: primary)
         }
 
         return nil
