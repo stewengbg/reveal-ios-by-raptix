@@ -1,0 +1,52 @@
+/* Reveal iOS — Swedish. Keys match the English source strings. */
+
+// Splash + Auth
+"Reveal" = "Reveal";
+"by Raptix" = "av Raptix";
+"Email" = "E-post";
+"Password" = "Lösenord";
+"Sign in" = "Logga in";
+"Wrong email or password." = "Fel e-post eller lösenord.";
+"Sign out" = "Logga ut";
+
+// SitesListView
+"Sites" = "Butiker";
+"No sites yet" = "Inga butiker än";
+"Sites you have access to will appear here." = "Butiker du har åtkomst till visas här.";
+"Try again" = "Försök igen";
+"Couldn't load sites" = "Kunde inte ladda butiker";
+"Paused" = "Pausad";
+
+// SiteDetailView placeholders
+"Visitors today" = "Besökare idag";
+"People now" = "Kunder nu";
+"Sensor health" = "Sensorstatus";
+"Hourly visitors" = "Besökare per timme";
+"Sensors" = "Sensorer";
+"Today's footfall vs typical day — coming next." = "Dagens besök vs typisk dag — kommer härnäst.";
+"Live temperature, humidity, queue status — coming next." = "Live temperatur, fukt, köstatus — kommer härnäst.";
+
+// AssociateHomeView
+"Today" = "Idag";
+"Your store" = "Din butik";
+"On shift since %@" = "På pass sedan %@";
+"Tap below to start your shift" = "Tryck för att börja ditt pass";
+"Loading…" = "Laddar…";
+"Floor" = "Golv";
+"Checkout" = "Kassa";
+"Back office" = "Back office";
+"Check in" = "Checka in";
+"Check out" = "Checka ut";
+"Checkout queue" = "Kassakö";
+"%lld waiting" = "%lld i kön";
+"Calm — no action needed." = "Lugnt — inget behöver göras.";
+"Steady — keep an eye on it." = "Stadigt — håll uppsikt.";
+"Queue forming. Open another lane." = "Kö bildas. Öppna en kassa till.";
+"I've got it" = "Jag tar det";
+"You've got it" = "Du tar det";
+"%@ has taken it" = "%@ tog det";
+"On shift with you" = "Kollegor på pass";
+"Customers in store" = "Kunder i butiken";
+"%lld right now" = "%lld just nu";
+"Updated just now" = "Uppdaterad just nu";
+"Updated %lld min ago" = "Uppdaterad för %lld min sedan";

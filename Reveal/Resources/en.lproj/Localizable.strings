@@ -1,0 +1,54 @@
+/* Reveal iOS — English (source of truth). Keys are the original
+   English strings used in SwiftUI `Text(...)` literals, so the app
+   falls back to readable English if a translation is missing. */
+
+// Splash + Auth
+"Reveal" = "Reveal";
+"by Raptix" = "by Raptix";
+"Email" = "Email";
+"Password" = "Password";
+"Sign in" = "Sign in";
+"Wrong email or password." = "Wrong email or password.";
+"Sign out" = "Sign out";
+
+// SitesListView
+"Sites" = "Sites";
+"No sites yet" = "No sites yet";
+"Sites you have access to will appear here." = "Sites you have access to will appear here.";
+"Try again" = "Try again";
+"Couldn't load sites" = "Couldn't load sites";
+"Paused" = "Paused";
+
+// SiteDetailView placeholders
+"Visitors today" = "Visitors today";
+"People now" = "People now";
+"Sensor health" = "Sensor health";
+"Hourly visitors" = "Hourly visitors";
+"Sensors" = "Sensors";
+"Today's footfall vs typical day — coming next." = "Today's footfall vs typical day — coming next.";
+"Live temperature, humidity, queue status — coming next." = "Live temperature, humidity, queue status — coming next.";
+
+// AssociateHomeView
+"Today" = "Today";
+"Your store" = "Your store";
+"On shift since %@" = "On shift since %@";
+"Tap below to start your shift" = "Tap below to start your shift";
+"Loading…" = "Loading…";
+"Floor" = "Floor";
+"Checkout" = "Checkout";
+"Back office" = "Back office";
+"Check in" = "Check in";
+"Check out" = "Check out";
+"Checkout queue" = "Checkout queue";
+"%lld waiting" = "%lld waiting";
+"Calm — no action needed." = "Calm — no action needed.";
+"Steady — keep an eye on it." = "Steady — keep an eye on it.";
+"Queue forming. Open another lane." = "Queue forming. Open another lane.";
+"I've got it" = "I've got it";
+"You've got it" = "You've got it";
+"%@ has taken it" = "%@ has taken it";
+"On shift with you" = "On shift with you";
+"Customers in store" = "Customers in store";
+"%lld right now" = "%lld right now";
+"Updated just now" = "Updated just now";
+"Updated %lld min ago" = "Updated %lld min ago";

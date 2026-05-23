@@ -8,6 +8,7 @@ struct LiveMetrics: Codable, Hashable {
     let queueLastUpdated: Date?
     let occupancyLastUpdated: Date?
     let openAlert: QueueAlert?
+    let tenantLogoUrl: String?
 
     enum CodingKeys: String, CodingKey {
         case queueCount = "queue_count"
@@ -15,6 +16,7 @@ struct LiveMetrics: Codable, Hashable {
         case queueLastUpdated = "queue_last_updated"
         case occupancyLastUpdated = "occupancy_last_updated"
         case openAlert = "open_alert"
+        case tenantLogoUrl = "tenant_logo_url"
     }
 }
 

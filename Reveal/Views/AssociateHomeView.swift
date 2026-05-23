@@ -93,7 +93,8 @@ final class AssociateHomeModel: ObservableObject {
                     occupancyCount: current.occupancyCount,
                     queueLastUpdated: current.queueLastUpdated,
                     occupancyLastUpdated: current.occupancyLastUpdated,
-                    openAlert: alert
+                    openAlert: alert,
+                    tenantLogoUrl: current.tenantLogoUrl
                 )
             }
         } catch {
@@ -171,6 +172,19 @@ struct AssociateHomeView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Today")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    if let urlStr = model.metrics?.tenantLogoUrl,
+                       let url = URL(string: urlStr) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            Color.clear
+                        }
+                        .frame(width: 28, height: 28)
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         if let email = auth.userEmail {
@@ -205,7 +219,7 @@ struct AssociateHomeView: View {
 
     private var siteHeader: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(assignment.primarySite?.name ?? "Your store")
+            Text(assignment.primarySite?.name ?? String(localized: "Your store"))
                 .font(.title3.bold())
             if let subtitle = assignment.primarySite?.streetAddress ?? assignment.primarySite?.location {
                 Text(subtitle)
@@ -273,7 +287,7 @@ struct AssociateHomeView: View {
                 Button {
                     roleTag = tag
                 } label: {
-                    Text(tag.rawValue)
+                    Text(LocalizedStringKey(tag.rawValue))
                         .font(.footnote.weight(.medium))
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
@@ -414,7 +428,7 @@ struct AssociateHomeView: View {
             }
         }
 
-        var subtitle: String {
+        var subtitle: LocalizedStringKey {
             switch self {
             case .green: return "Calm — no action needed."
             case .yellow: return "Steady — keep an eye on it."
