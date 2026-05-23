@@ -7,24 +7,33 @@ final class AuthStore: ObservableObject {
 
     @Published private(set) var state: State = .unknown
     @Published private(set) var userEmail: String?
+    @Published private(set) var assignment: UserRoleAssignment?
+    @Published private(set) var isResolvingRole = false
     @Published var lastError: String?
 
     private var listenerTask: Task<Void, Never>?
+    private var roleResolverTask: Task<Void, Never>?
 
     func bootstrap() async {
+        print("[AuthStore] bootstrap start")
         listenerTask?.cancel()
         listenerTask = Task { [weak self] in
             for await (event, session) in SupabaseService.client.auth.authStateChanges {
+                print("[AuthStore] authStateChange event=\(event) hasSession=\(session != nil)")
                 self?.apply(event: event, session: session)
             }
         }
 
         do {
             let session = try await SupabaseService.client.auth.session
+            print("[AuthStore] resumed session for \(session.user.email ?? "?")")
             apply(session: session)
         } catch {
-            state = .signedOut
-            userEmail = nil
+            print("[AuthStore] no resumable session: \(error.localizedDescription)")
+            if state == .unknown {
+                state = .signedOut
+                userEmail = nil
+            }
         }
     }
 
@@ -63,9 +72,32 @@ final class AuthStore: ObservableObject {
         if let session {
             state = .signedIn
             userEmail = session.user.email
+            resolveRole(for: session.user.id)
         } else {
             state = .signedOut
             userEmail = nil
+            assignment = nil
+            isResolvingRole = false
+            roleResolverTask?.cancel()
+        }
+    }
+
+    private func resolveRole(for userId: UUID) {
+        roleResolverTask?.cancel()
+        isResolvingRole = true
+        roleResolverTask = Task { [weak self] in
+            do {
+                let resolved = try await RoleResolver.resolve(userId: userId)
+                guard !Task.isCancelled else { return }
+                self?.assignment = resolved
+                self?.isResolvingRole = false
+                print("[AuthStore] resolved role=\(resolved?.role.rawValue ?? "nil") site=\(resolved?.primarySite?.name ?? "nil")")
+            } catch {
+                guard !Task.isCancelled else { return }
+                print("[AuthStore] role resolution failed: \(error.localizedDescription)")
+                self?.assignment = nil
+                self?.isResolvingRole = false
+            }
         }
     }
 
@@ -81,6 +113,26 @@ extension AuthStore {
         let store = AuthStore()
         store.state = .signedIn
         store.userEmail = "stefan@raptix.se"
+        return store
+    }
+
+    static func previewAssociate() -> AuthStore {
+        let store = AuthStore()
+        store.state = .signedIn
+        store.userEmail = "meja@jarlegren.se"
+        store.assignment = UserRoleAssignment(
+            role: .associate,
+            primarySite: Site(
+                id: UUID(),
+                name: "ICA Nära Roslagstull",
+                location: "Stockholm",
+                isActive: true,
+                tenantId: UUID(),
+                streetAddress: "Roslagsvägen 17",
+                latitude: 59.35,
+                longitude: 18.06
+            )
+        )
         return store
     }
 }
