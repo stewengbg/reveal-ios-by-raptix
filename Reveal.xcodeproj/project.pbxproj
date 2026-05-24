@@ -12,10 +12,12 @@
 		38E935FF28BC8248C3C96057 /* Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884B2FD7625E3AD5CD45EE6E /* Site.swift */; };
 		3D59A194C3A4990310CC6A77 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AF16E9A39493C4C7044E05D /* Localizable.strings */; };
 		3ECB9A46AE14B12C972CC57E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43C3388F3578DDE19F85BA9 /* ContentView.swift */; };
+		4DED8E1CB760D7010D6673D0 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEB74F26A709C16815065E /* PushNotificationManager.swift */; };
 		61C40CA8FC71BF8735BE027F /* RevealApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77EAA1BC2C6AC678C7E6C08 /* RevealApp.swift */; };
 		7B47BEDF8C68B7F6BFCBF94B /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8059500F41D8BE5A421237 /* AuthStore.swift */; };
 		8CD1F3A92FC1813C7EFD0430 /* SitesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C89F93EB754B292F54D092 /* SitesListView.swift */; };
 		8FBD31CAB444711436C1C2F2 /* SiteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BB8F0A1C69946A7633F98B /* SiteDetailView.swift */; };
+		9C176B96DA2139D24B0814BC /* PushTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3205F8DD7BD4DC694AF28FB5 /* PushTokenRepository.swift */; };
 		A98B667E458154C192E32841 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 13FEFA7ED2B5B19A2A8E9049 /* Supabase */; };
 		AC2D82BDA8465E7FD9E24700 /* SitesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06D5F37CB02065D85FD3AA /* SitesRepository.swift */; };
 		AF6C2827FBED624C2E23B3FF /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCAD155AEB1A5D11C6E208 /* SupabaseService.swift */; };
@@ -29,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3205F8DD7BD4DC694AF28FB5 /* PushTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushTokenRepository.swift; sourceTree = "<group>"; };
 		41B68763AC2E26888ACCF5D9 /* RoleResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleResolver.swift; sourceTree = "<group>"; };
 		4ACDC3481F8ED24BA223338E /* LiveMetricsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMetricsRepository.swift; sourceTree = "<group>"; };
 		4D9B6FC960C7FEDFC03088F5 /* QueueAlertsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueAlertsRepository.swift; sourceTree = "<group>"; };
@@ -37,6 +40,7 @@
 		7A0D0F8FCF76C52170B18613 /* UserRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
 		83BB8F0A1C69946A7633F98B /* SiteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteDetailView.swift; sourceTree = "<group>"; };
 		884B2FD7625E3AD5CD45EE6E /* Site.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Site.swift; sourceTree = "<group>"; };
+		8AAEB74F26A709C16815065E /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		96D2B94D3E246C1393B5EAEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D22E58AF2236A605FF11146 /* Reveal.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Reveal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6D2F9D703DEA99E1CB9612F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -49,6 +53,7 @@
 		E76B9F271A49F4A6894183A0 /* AssociateHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociateHomeView.swift; sourceTree = "<group>"; };
 		E77EAA1BC2C6AC678C7E6C08 /* RevealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealApp.swift; sourceTree = "<group>"; };
 		FB34262940547631969DB267 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		FF571AAC492E6A4B430842A5 /* Reveal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Reveal.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +117,8 @@
 			children = (
 				DC8059500F41D8BE5A421237 /* AuthStore.swift */,
 				4ACDC3481F8ED24BA223338E /* LiveMetricsRepository.swift */,
+				8AAEB74F26A709C16815065E /* PushNotificationManager.swift */,
+				3205F8DD7BD4DC694AF28FB5 /* PushTokenRepository.swift */,
 				4D9B6FC960C7FEDFC03088F5 /* QueueAlertsRepository.swift */,
 				41B68763AC2E26888ACCF5D9 /* RoleResolver.swift */,
 				B704A36E7D6614AF5A3FF116 /* ShiftsRepository.swift */,
@@ -124,6 +131,7 @@
 		E4198B4E1DE8B8DA81367404 /* Reveal */ = {
 			isa = PBXGroup;
 			children = (
+				FF571AAC492E6A4B430842A5 /* Reveal.entitlements */,
 				3C403E44EA1FDE54A3832258 /* App */,
 				5EE15A9154BC5E0A1B0EA6F1 /* Models */,
 				546A4CB8EE80A751169BAA47 /* Resources */,
@@ -228,6 +236,8 @@
 				3ECB9A46AE14B12C972CC57E /* ContentView.swift in Sources */,
 				EE00D42C78565B27AD02B484 /* LiveMetrics.swift in Sources */,
 				F71DCFD5D918AD859768987C /* LiveMetricsRepository.swift in Sources */,
+				4DED8E1CB760D7010D6673D0 /* PushNotificationManager.swift in Sources */,
+				9C176B96DA2139D24B0814BC /* PushTokenRepository.swift in Sources */,
 				F04993DE206CD104D9377CA0 /* QueueAlertsRepository.swift in Sources */,
 				61C40CA8FC71BF8735BE027F /* RevealApp.swift in Sources */,
 				C3209DCCF4FE30745DC295E1 /* RoleResolver.swift in Sources */,
@@ -261,6 +271,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Reveal/Reveal.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -409,6 +420,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Reveal/Reveal.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
