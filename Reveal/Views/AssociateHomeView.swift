@@ -218,16 +218,9 @@ struct AssociateHomeView: View {
     // MARK: – Site header
 
     private var siteHeader: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(assignment.primarySite?.name ?? String(localized: "Your store"))
-                .font(.title3.bold())
-            if let subtitle = assignment.primarySite?.streetAddress ?? assignment.primarySite?.location {
-                Text(subtitle)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        Text(assignment.primarySite?.name ?? String(localized: "Your store"))
+            .font(.title3.bold())
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: – Check in / out
