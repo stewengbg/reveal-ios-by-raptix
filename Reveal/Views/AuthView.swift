@@ -14,12 +14,21 @@ struct AuthView: View {
         VStack(spacing: 32) {
             Spacer()
 
-            VStack(spacing: 8) {
-                Text("Reveal")
-                    .font(.system(size: 40, weight: .semibold, design: .rounded))
-                Text("by Raptix")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+            VStack(spacing: 16) {
+                Image("AppLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 96, height: 96)
+                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    .shadow(color: .black.opacity(0.08), radius: 10, y: 4)
+
+                VStack(spacing: 4) {
+                    Text("Reveal")
+                        .font(.system(size: 32, weight: .semibold, design: .rounded))
+                    Text("by Raptix")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             VStack(spacing: 12) {
