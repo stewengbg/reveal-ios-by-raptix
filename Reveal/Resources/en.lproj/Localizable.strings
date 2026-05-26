@@ -28,6 +28,21 @@
 "Today's footfall vs typical day — coming next." = "Today's footfall vs typical day — coming next.";
 "Live temperature, humidity, queue status — coming next." = "Live temperature, humidity, queue status — coming next.";
 
+// OwnerHomeView
+"All sites" = "All sites";
+"Customers now" = "Customers now";
+"In queue" = "In queue";
+"Sites with alert" = "Sites with alert";
+"People" = "People";
+"Handled by %@" = "Handled by %@";
+"Needs attention" = "Needs attention";
+
+// ManagerHomeView
+"On shift" = "On shift";
+"Queue forming" = "Queue forming";
+"Staff on shift" = "Staff on shift";
+"No one is checked in right now." = "No one is checked in right now.";
+
 // AssociateHomeView
 "Today" = "Today";
 "Your store" = "Your store";

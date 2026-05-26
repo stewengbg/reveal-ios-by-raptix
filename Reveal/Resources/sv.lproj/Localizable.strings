@@ -26,6 +26,21 @@
 "Today's footfall vs typical day — coming next." = "Dagens besök vs typisk dag — kommer härnäst.";
 "Live temperature, humidity, queue status — coming next." = "Live temperatur, fukt, köstatus — kommer härnäst.";
 
+// OwnerHomeView
+"All sites" = "Alla butiker";
+"Customers now" = "Kunder just nu";
+"In queue" = "I kön";
+"Sites with alert" = "Butiker med larm";
+"People" = "Kunder";
+"Handled by %@" = "Hanteras av %@";
+"Needs attention" = "Behöver hjälp";
+
+// ManagerHomeView
+"On shift" = "På pass";
+"Queue forming" = "Kö bildas";
+"Staff on shift" = "Personal på pass";
+"No one is checked in right now." = "Ingen är incheckad just nu.";
+
 // AssociateHomeView
 "Today" = "Idag";
 "Your store" = "Din butik";

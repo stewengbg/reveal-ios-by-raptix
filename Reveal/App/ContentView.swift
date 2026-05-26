@@ -20,10 +20,16 @@ struct ContentView: View {
             switch assignment.role {
             case .associate:
                 AssociateHomeView(assignment: assignment)
-            case .owner, .manager:
-                // Owner + Manager use SitesListView for now. Dedicated
-                // OwnerHomeView / ManagerHomeView land in later phases.
-                SitesListView()
+            case .manager:
+                if let site = assignment.primarySite {
+                    NavigationStack {
+                        ManagerHomeView(site: site)
+                    }
+                } else {
+                    SitesListView()
+                }
+            case .owner:
+                OwnerHomeView()
             }
         } else if auth.isResolvingRole {
             SplashView()
